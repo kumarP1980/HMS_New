@@ -4,25 +4,25 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-//const session = require('express-session');
+const session = require('express-session');
 //const passport = require("passport");
 //const passportLocalMongoose = require("passport-local-mongoose");
 //const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
-var placeName=[];
+var placeName="";
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-/*app.use(session({
+app.use(session({
   secret: "Our little secret.",
   resave: false,
   saveUninitialized: false
-}));*/
+}));
 
 //app.use(passport.initialize());
 //app.use(passport.session());
@@ -82,9 +82,9 @@ app.post("/login", function(req, res){
             // const dbName = name;           
             //mongoose.connect(url + "/" + dbName + "DB", { useNewUrlParser: true });   
             users.forEach(function(users) {
-                placeName.push(users.userName);             
+                placeName = users.userName;             
               });          
-            res.redirect("/secrets");
+            res.redirect("/office");
         }
       });  
   });
@@ -110,16 +110,16 @@ app.get("/register", function (req, res) {
     res.render("register");
 });
 
-app.get("/secrets", function (req, res) {
+app.get("/office", function (req, res) {
 
-    const userName = placeName[0];
+    const userName = placeName;
     const OfficeInfo = mongoose.model("OfficeInfo", officeDetail);
     OfficeInfo.find({"userName": {$eq: userName}}, function(err, foundUsers){
         if (err){
           console.log(err);
         } else {
           if (foundUsers) {
-            res.render("secrets", {userDetails: foundUsers});
+            res.render("office", {userDetails: foundUsers});
           }
         }
       });
@@ -147,7 +147,7 @@ app.post("/submit", function (req, res) {
             if (foundUser) {
                 foundUser.secret = submittedSecret;
                 foundUser.save(function () {
-                    res.redirect("/secrets");
+                    res.redirect("/office");
                 });
             }
         }
@@ -155,7 +155,8 @@ app.post("/submit", function (req, res) {
 });
 
 app.get("/logout", function (req, res) {
-    req.logout();
+   // req.logout();
+   req.session.destroy();
     res.redirect("/");
 });
 
