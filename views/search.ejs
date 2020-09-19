@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+    <h3>Search</h3>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class='container'>
+                    <!-- Makes POST request to /search route -->
+                    <form class="form-inline" action="/search" method="POST"> 
+                        <div class="form-group mx-sm-3 mb-2">                            
+                            <input type="text" class="form-control" name="fname" placeholder="First Name" required>
+                          </div>     
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="date" class="form-control" name="dob" placeholder="Date of Birth" required>
+                          </div>  
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number" required>
+                        </div>          
+                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                    </form>
+                    <br><br>
+
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>                            
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Phone#</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% personsDetail.forEach(function(person){ %>
+                                <tr>
+                                    <td><%=person.fname%></td>
+                                    <td><%=person.lname%></td>
+                                    <td><%=person.phoneNumber%></td>
+                                  </tr>  
+                              <% }) %>  
+                                                  
+                        </tbody>
+                      </table>
+
+               </div>
+            </div>
+        </div> 
+    </div>
