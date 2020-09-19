@@ -35,7 +35,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-const url = 'mongodb://localhost:27017';
+//const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://admin-kumar:provider852@cluster-blog-cj9jb.mongodb.net';
 mongoose.connect(url + "/HMSDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
