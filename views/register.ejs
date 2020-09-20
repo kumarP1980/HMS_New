@@ -1,4 +1,6 @@
 <%- include('partials/header_home') %>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/pwstrength.js"></script>
 <div class="container mt-5">
   <h1>Sign Up</h1>
 
@@ -15,7 +17,7 @@
             </div>
             <div class="form-group">
               <label for="streetName">Street Name:</label>
-              <input type="text" class="form-control" name="streetName" required> 
+              <input type="text" class="form-control" name="streetName" required>
             </div>
             <div class="form-group">
               <label for="city">City:</label>
@@ -27,11 +29,11 @@
             </div>
             <div class="form-group">
               <label for="pinCode">Pin Code:</label>
-              <input type="text" class="form-control" name="pinCode" required>
+              <input type="text" class="form-control" minlength="6" maxlength="6" name="pinCode" required>
             </div>
             <div class="form-group">
               <label for="phoneNumber">Phone:</label>
-              <input type="text" class="form-control" name="phoneNumber" required>
+              <input type="text" class="form-control" minlength="10" maxlength="10" name="phoneNumber" required>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
@@ -39,29 +41,27 @@
             </div>
             <div class="form-group">
               <label for="userName">Username</label>
-              <input type="userName" class="form-control" name="userName" required>
+              <input type="userName" class="form-control" minlength="6" maxlength="12" name="userName" required>
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" required>
+            <div class="row" id="pwd-container">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" minlength="8" maxlength="16" name="password" required>
+                </div>
+              </div>
+              <div class="col-sm-6 col-sm-offset-2" style="padding-top: 30px;">
+                <div class="pwstrength_viewport_progress"></div>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-sm">Register</button>
-          </form>
-
+            <div class="row">
+              <div id="messages" class="col-sm-12"></div>
+            </div>
         </div>
+        <button type="submit" class="btn btn-primary btn-sm">Register</button>
+        <button type="reset" class="btn btn-primary btn-sm">Reset</button>
+        </form>
+
       </div>
     </div>
-
-   <!-- <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign Up with Google
-          </a>
-        </div>
-    
-      </div>
-    </div>-->
-
-<!--<%- include('partials/footer') %>-->
+  </div>
