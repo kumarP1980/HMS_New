@@ -148,8 +148,7 @@ app.post("/search",function(req, res) {
     if (req.isAuthenticated()) {
         const PersonInfo = new mongoose.model("PersonInfo", personDetails);
         PersonInfo.find({ "username": { $eq: uname } , "fname":{ $eq: fname}, "dob":{ $eq: dob}, "phoneNumber":{ $eq: phnum}
-                 }, function (err, foundPerson) {
-            console.log(foundPerson);
+                 }, function (err, foundPerson) {            
             if (err) {
                 console.log(err);
             } else {
