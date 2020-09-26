@@ -18,8 +18,7 @@
                         </div>          
                         <button type="submit" class="btn btn-primary btn-sm">Search</button>
                     </form>
-                    <br><br>
-
+                    <br><br>                   
                     <table class="table table-sm">
                         <thead>
                           <tr>                            
@@ -32,8 +31,12 @@
                             <% personsDetail.forEach(function(person){ %>
                                 <tr>
                                     <td><%=person.fname%></td>
-                                    <td><%=person.lname%></td>
+                                    <td><%=person.lname%></td>                                    
                                     <td><%=person.phoneNumber%></td>
+                                    <td><a class="btn btn-primary btn-sm" href="/view/<%= person._id %>" role="button">View</a>
+                                      <a class="btn btn-primary btn-sm" href="/edit/<%= person._id %>" role="button">Edit</a>
+                                      <!--<a class="btn btn-primary btn-sm" href="/delete/<%= person._id %>" role="button">Delete</a>-->
+                                      </td>
                                   </tr>  
                               <% }) %>  
                                                   
@@ -44,3 +47,25 @@
             </div>
         </div> 
     </div>
+    </div>
+    <div id="delete" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+ </body>

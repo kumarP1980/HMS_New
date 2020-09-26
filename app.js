@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+const moment = require('moment');
 //const findOrCreate = require('mongoose-findorcreate');
 
 const ageCalc = require("age-calculator");
@@ -35,8 +36,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//const url = 'mongodb://localhost:27017';
-const url = 'mongodb+srv://admin-kumar:provider852@cluster-blog-cj9jb.mongodb.net';
+const url = 'mongodb://localhost:27017';
+//const url = 'mongodb+srv://admin-kumar:provider852@cluster-blog-cj9jb.mongodb.net';
 mongoose.connect(url + "/HMSDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
@@ -121,6 +122,60 @@ app.get("/search", function (req, res) {
     }
 });
 
+app.get("/delete/:personID", function(req, res) {
+    const requestedPersonId = req.params.personID;
+    PersonInfo.findOne({
+      _id: requestedPersonId
+    }, function(err, blogs) {
+      res.render("delete", {
+        //title: blogs.title,
+        //blogText: blogs.blog
+      });
+    });
+  });
+
+  app.get("/edit/:personID", function(req, res) {
+    const requestedPersonId = req.params.personID;
+    PersonInfo.findOne({
+      _id: requestedPersonId
+    }, function(err, personDtls) {
+        const time = moment(personDtls.dob);
+        const dob = time.format("MM/DD/YYYY");
+        res.render("edit", {
+        id: personDtls._id,  
+        fname: personDtls.fname,
+        lname: personDtls.lname,
+        dob: dob,
+        age: personDtls.age,
+        streetName: personDtls.streetName,
+        city: personDtls.city,
+        state: personDtls.state,
+        pinCode: personDtls.pincode,
+        phoneNumber: personDtls.phoneNumber,
+        email: personDtls.email,
+        clinicName: clinicName
+      });
+    });
+  });
+
+  app.post("/modify", function(req,res) {
+    let personID = req.body.personID;
+    let streetName = req.body.streetName;
+    let city = req.body.city;
+    let state = req.body.state;
+    let pinCode = req.body.pinCode;
+    let phoneNumber = req.body.phoneNumber;
+    let email = req.body.email;
+    const filter = { _id: personID };
+    const update = { streetName: streetName, city: city, state: state, pincode: pinCode, phoneNumber: phoneNumber, email: email };
+    mongoose.set('useFindAndModify', false);
+    PersonInfo.findOneAndUpdate(filter, update, function (err, person) {        
+      });
+    if (req.isAuthenticated()) {
+        res.redirect("/search");
+    }
+  });
+
 app.post("/login", function (req, res) {
     const user = new User({
         username: req.body.username,
@@ -144,7 +199,7 @@ app.post("/search",function(req, res) {
     const fname = req.body.fname;
     const dob = req.body.dob;
     const phnum = req.body.phoneNumber;    
-    const uname = placeName;
+    const uname = placeName;    
     if (req.isAuthenticated()) {
         const PersonInfo = new mongoose.model("PersonInfo", personDetails);
         PersonInfo.find({ "username": { $eq: uname } , "fname":{ $eq: fname}, "dob":{ $eq: dob}, "phoneNumber":{ $eq: phnum}
@@ -158,9 +213,31 @@ app.post("/search",function(req, res) {
             }
         });
     }
-
-
 });
+
+app.get("/view/:personID", function(req, res) {
+    const requestedPersonId = req.params.personID;
+    PersonInfo.findOne({
+      _id: requestedPersonId
+    }, function(err, personDtls) {
+        const time = moment(personDtls.dob);
+        const dob = time.format("MM/DD/YYYY");
+        res.render("view", {
+        id: personDtls._id,  
+        fname: personDtls.fname,
+        lname: personDtls.lname,
+        dob: dob,
+        age: personDtls.age,
+        streetName: personDtls.streetName,
+        city: personDtls.city,
+        state: personDtls.state,
+        pinCode: personDtls.pincode,
+        phoneNumber: personDtls.phoneNumber,
+        email: personDtls.email,
+        clinicName: clinicName
+      });
+    });
+  });
 
 
 app.get("/office", function (req, res) {
@@ -194,7 +271,7 @@ app.post("/enroll",function(req, res) {
         streetName: req.body.streetName,
         city: req.body.city,
         state: req.body.state,
-        pincode: req.body.pincode,
+        pincode: req.body.pinCode,
         phoneNumber: req.body.phoneNumber,
         email: req.body.email
     });
@@ -224,7 +301,7 @@ app.post("/register", function (req, res) {
                     streetName: req.body.streetName,
                     city: req.body.city,
                     state: req.body.state,
-                    pincode: req.body.pincode,
+                    pincode: req.body.pinCode,
                     phoneNumber: req.body.phoneNumber,
                     email: req.body.email
                 });

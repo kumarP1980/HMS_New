@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+    <h3>View Details</h3>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Makes POST request to /modify route -->
+                        <input type="hidden" name="personID" value="<%=id%>" />
+                        <div class="form-group">
+                            <label for="fname">Name:</label><%=fname%> <%=lname%>                        
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label><%=dob%> (<%=age%> Years)                          
+                        </div>
+                        <div class="form-group">
+                            <label for="streetName">Address:</label>
+                            <%=streetName%>,
+                            <%=city%>,
+                            <%=state%>,
+                            <%=pinCode%>                        
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone:</label><%=phoneNumber%>                            
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label><%=email%>                            
+                        </div>
+                </div>
+            </div>
+        </div>
