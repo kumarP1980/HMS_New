@@ -11,36 +11,49 @@
                     <form action="/modify" method="POST">
                         <input type="hidden" name="personID" value="<%=id%>" />
                         <div class="form-group">
-                            <label for="fname">Name:<%=fname%> <%=lname%></label>                           
+                            <label for="fname">Name:<%=fname%> <%=lname%></label>
                         </div>
                         <div class="form-group">
-                            <label for="dob">Date of Birth:<%=dob%> (<%=age%> Years)</label>                            
+                            <label for="dob">Date of Birth:<%=dob%> (<%=age%> Years)</label>
                         </div>
-                        <div class="form-group">
-                            <label for="streetName">Street Name:</label>
-                            <input type="text" class="form-control" name="streetName" value="<%=streetName%>" required>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="streetName">Street Name:</label>
+                                <input type="text" class="form-control" name="streetName" value="<%=streetName%>"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="city">City:</label>
+                                <input type="text" class="form-control" name="city" value="<%=city%>" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="city">City:</label>
-                            <input type="text" class="form-control" name="city" value="<%=city%>" required>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="state">State:</label>
+                                <input type="text" class="form-control" name="state" value="<%=state%>" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="pinCode">Pin Code:</label>
+                                <input type="text" class="form-control" minlength="6" maxlength="6" name="pinCode"
+                                    value="<%=pinCode%>" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="state">State:</label>
-                            <input type="text" class="form-control" name="state" value="<%=state%>" required>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="phoneNumber">Phone:</label>
+                                <input type="text" class="form-control" minlength="10" maxlength="10" name="phoneNumber"
+                                    value="<%=phoneNumber%>" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" value="<%=email%>">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="pinCode">Pin Code:</label>
-                            <input type="text" class="form-control" minlength="6" maxlength="6" name="pinCode" value="<%=pinCode%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phoneNumber">Phone:</label>
-                            <input type="text" class="form-control" minlength="10" maxlength="10" name="phoneNumber" value="<%=phoneNumber%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" value="<%=email%>">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Save</button>                        
+
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        <button type="cancel" class="btn btn-primary btn-sm">Cancel</button>
                     </form>
 
                 </div>
