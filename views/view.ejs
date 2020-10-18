@@ -5,9 +5,9 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       
           <ul class="nav navbar-nav navbar-right">
-            <li id="medication"><a href="/medication">Medication</a></li>
-            <li id="diagnosis"><a href="/diagnosis">Diagnosis</a></li>
-            <li id="labreport"><a href="/labreport">Lab Report</a></li>
+            <li id="medication"><a href="/medication/<%=id %>">Medication</a></li>
+            <li id="diagnosis"><a href="/diagnosis/<%=id %>">Diagnosis</a></li>
+            <!--<li id="labreport"><a href="/labreport">Lab Report</a></li>-->
           </ul>
       
         </div>
@@ -55,6 +55,23 @@
                             </tbody>
                           </table>
                           <br>
+                          <h4>Diagnosis</h4>                          
+                        <table class="table table-sm">
+                            <thead>
+                              <tr>                            
+                                <th scope="col">Date</th>
+                                <th scope="col">Diagnosis</th>                                                           
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% diagnosisDtls.forEach(function(diagnosis){ %>
+                                <tr>
+                                    <td><%=diagnosis.diagnosisDate%></td>
+                                    <td><%- diagnosis.details%></td>    
+                                  </tr>  
+                              <% }) %>                  
+                            </tbody>
+                          </table><br>
                           <h4>Medication</h4>                          
                         <table class="table table-sm">
                             <thead>
@@ -66,7 +83,19 @@
                               </tr>
                             </thead>
                             <tbody>
-                                
+                              <% let options = {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            };%>
+                              <% medicationDtls.forEach(function(medication){ %>
+                                <tr>
+                                    <td><%= medication.name%></td>
+                                    <td><%= medication.dose%></td>
+                                    <td><%= medication.startDate.toLocaleDateString("en-US", options)%></td>
+                                    <td><%= medication.endDate.toLocaleDateString("en-US", options)%></td>    
+                                  </tr>  
+                              <% }) %>  
                                                       
                             </tbody>
                           </table>
