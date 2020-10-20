@@ -290,7 +290,7 @@ app.get("/edit/:personID", function (req, res) {
             providerName:personDtls.insurance.providerName,
             groupNum:personDtls.insurance.groupNum,
             policyNum:personDtls.insurance.policyNum,
-            effFrom:effFrom,
+            effFrom:personDtls.insurance.effectiveFrom,
             providerPhone:personDtls.insurance.providerPhoneNum
         });
     });
