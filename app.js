@@ -9,7 +9,6 @@ const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const moment = require('moment');
-//const findOrCreate = require('mongoose-findorcreate');
 
 const ageCalc = require("age-calculator");
 let {
