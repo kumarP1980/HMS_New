@@ -272,8 +272,8 @@ app.get("/edit/:personID", function (req, res) {
     }, function (err, personDtls) {
         const time = moment(personDtls.dob);
         const dob = time.format("MM/DD/YYYY");
-        const effFromTime = moment(personDtls.insurance.effectiveFrom);
-        const effFrom = effFromTime.format("MM/DD/YYYY");
+        const effFrom = moment(personDtls.insurance.effectiveFrom).utc().format("YYYY-MM-DD");
+        
         res.render("edit", {
             id: personDtls._id,
             fname: personDtls.fname,
@@ -325,8 +325,7 @@ app.get("/view/:personID", function (req, res) {
         var areaCode = (personDtls.phoneNumber).substr(0, 3);
         var phoneNum = (personDtls.phoneNumber).substr(3, 9);
         const effFromTime = moment(personDtls.insurance.effectiveFrom);
-        const effFrom = effFromTime.format("MM/DD/YYYY");
-        console.log("Medications:" + personDtls.medication);
+        const effFrom = effFromTime.format("MM/DD/YYYY");        
         res.render("view", {
             id: personDtls._id,
             fname: personDtls.fname,
@@ -435,8 +434,6 @@ app.post("/medication", function (req, res) {
     });
     medicationInfo.save(function (err) {
     });
-    console.log("Value of i:" + i);
-    console.log(medicationInfo);
     const filter = { _id: personID};
     mongoose.set('useFindAndModify', false);
     PersonInfo.findById(filter, function (err, person) {
@@ -447,8 +444,7 @@ app.post("/medication", function (req, res) {
                 console.log(err);
             }    
         }); 
-    }); 
-    console.log("Data Save in Person");
+    });     
     }
     if (req.isAuthenticated()) {
         res.redirect("/view/" + personID);
