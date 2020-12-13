@@ -1,5 +1,6 @@
 
 // Required packages
+require('dotenv').config();
 const expressSanitizer = require('express-sanitizer');
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -41,8 +42,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // DB Details
-//const url = 'mongodb://localhost:27017';
-const url = 'mongodb+srv://admin-kumar:provider852@cluster-blog-cj9jb.mongodb.net';
+const url = 'mongodb://localhost:27017';
+//const url = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster-blog-cj9jb.mongodb.net';
 mongoose.connect(url + "/HMSDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
@@ -497,10 +498,43 @@ app.post("/diagnosis", function (req, res) {
                 res.redirect("/view/" + personID);
             }    
         });   
-    }); 
-    
-    
+    });     
 });
+
+// Define Reset Password
+app.get("/resetPass", function (req, res) {
+    const msg = "";
+    res.render('resetPassword',{
+      msg:msg
+    });
+  });
+  
+  app.post("/resetPass", function (req, res) {
+    const username = req.body.username;
+    const message = "Username " + username + " doesn't exist.";
+    const users = mongoose.model("User", userSchema);
+    users.findOne({ "username": { $eq: username } }, function (err, userData) {
+      if (err) {
+        console.log(err);
+       res.redirect("/resetPass");
+      } 
+      if (!userData) {
+        res.render('resetPassword',{
+          msg:message
+        });
+      } else {
+        userData.setPassword(req.body.password, function (err, user) {
+          if (err) {
+            console.log(err);
+            res.redirect("/resetPass");
+          } else {
+            userData.save();
+            res.redirect("/login");
+          }
+        });
+      }
+    });  
+  });
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Sever has started on port 3000......");
