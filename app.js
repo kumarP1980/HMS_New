@@ -134,8 +134,7 @@ app.post("/login", function (req, res) {
 
     req.login(user, function (err) {
         if (err) {
-            console.log("Not valid user");
-            res.render("login");
+             res.render("login");
         } else {
             passport.authenticate("local", { failureRedirect: '/login' })(req, res, function () {
                 placeName = req.body.username;
