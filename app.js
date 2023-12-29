@@ -42,8 +42,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // DB Details
-//const url = 'mongodb://localhost:27017';
-const url = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster-blog-cj9jb.mongodb.net';
+const url = 'mongodb://localhost:27017';
+//const url = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster-blog-cj9jb.mongodb.net';
 mongoose.connect(url + "/HMSDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
