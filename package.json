@@ -4,8 +4,7 @@
   "description": "This project to patient health management.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha --recursive test",
+    "start": "node app.js",    
     "bump-version": "npm version patch"
   },
   "author": "PranavK",
